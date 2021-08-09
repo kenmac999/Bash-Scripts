@@ -1,7 +1,7 @@
 #!/bin/bash
 #----------------------------------------------------------------------------#
 # File: rsyncdirectories.sh
-# Last Update: Sun 28 Feb 2021 09:46:54 PM CST 
+# Last Update: Sun 08 Aug 2021 08:44:41 PM CDT 
 # Designed to syncronize certain directories on my ThinkCentre and emachine 
 # computers to external drives.
 #----------------------------------------------------------------------------#
@@ -130,6 +130,27 @@ echo " -- started $MONTH/$DAY/$YEAR, $TIME.$NANO -- " "( line $LINENO )"
 #----------------------------------------------------------------------------#
 # this section contains rsync commands that will be run from ThinkCentre computer
 
+#----------------------------------------------------------------------------#
+# rsync from Seagate3TBext4 to My_Passport if My_Passport is connected
+
+# test if My_Passport is connected; if connected backup Seagate3TBext4/Backup, Public to My_Passport
+if [ -z "$drive_PASSPORT" ];  then # My_Passport not connected
+	echo "My_Passport not connected."  "( line $LINENO )"
+	# pause_func "Paused at $LINENO . Press [Ctrl]+[C] to cancel or [Enter] key to continue..."
+else # My_Passport is connected
+	SRC="$drive_Seagate3TBext4" # new source directory
+	DEST1="$drive_PASSPORT" 
+	echo "source: $SRC  destination: $DEST1" "( line $LINENO )"
+	for i in Backup Public
+	do
+		echo "line $LINENO - " "Passing $SRC$i , $DEST1$i to function parallel_rsync" 2>&1 | /home/dad/Bash_Scripts/timestamp.sh >> "$BKLOG" 
+		echo "line $LINENO - " "Passing $SRC$i $DEST1$i to function parallel_rsync" 2>&1 | /home/dad/Bash_Scripts/timestamp.sh 
+		parallel_rsync "$SRC$i" "$DEST1$i"
+	done
+
+fi
+
+
 # if Host computer is ThinkCentre then copy to ThinkCentre external drives
 if [ "$HOSTNAME" == "dad-ThinkCentre-A63" ]; then
 	# this 
@@ -144,7 +165,7 @@ if [ "$HOSTNAME" == "dad-ThinkCentre-A63" ]; then
 	DEST1="$drive_homedata" 
 	DEST1+="dad/" # first destination directory is on homedata/dad
 	echo "source: $SRC  destination: $DEST1" "( line $LINENO )"
-	for i in Ardour Audacity Bash_Scripts COBOL Documents lmms Pictures Pimlico Public .thunderbird 
+	for i in Ardour Audacity Bash_Scripts COBOL Documents lmms Pictures Pimlico Public Untitled_Linux_Show .thunderbird 
 	do
 		# for DEST1
 		echo "rsync $rsync_options $SRC$i/ $DEST1$i/" "( line $LINENO )" 2>&1 | /home/dad/Bash_Scripts/timestamp.sh 
@@ -191,7 +212,7 @@ if [ "$HOSTNAME" == "dad-ThinkCentre-A63" ]; then
 	SRC="/media/dad/homedata/dad/"
 	DEST="$drive_Seagate3TBext4"
 	DEST+="home/dad/"
-	for i in Archives Ardour atari800 Audacity BackupCompaq BackupNook Bash_Scripts blender COBOL Developing Documents lmms "My_Computer_Notes" PalmBU Pictures Pimlico Public webpages Web_Pages .thunderbird
+	for i in Archives Ardour atari800 Audacity BackupCompaq BackupNook Bash_Scripts blender COBOL Developing Documents lmms "My_Computer_Notes" PalmBU Pictures Pimlico Public Untitled_Linux_Show webpages Web_Pages .thunderbird
 	        
 	do
 		echo "rsync $rsync_options $SRC$i/ $DEST$i/" "( line $LINENO )" 2>&1 | /home/dad/Bash_Scripts/timestamp.sh 
