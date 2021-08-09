@@ -21,16 +21,6 @@ empty_func(){
 }
 
 #----------------------------------------------------------------------------#
-# function designed to emulate dos pause command
-# can pass any prompt to display
-# example pause 'Press [Ctrl]+[C] to cancel or [Enter] key to continue...'
-
-function pause(){
-   read -p "$*"
- echo ""
-}
-
-#----------------------------------------------------------------------------#
 # function designed to get directory of currently running file, create symlink 
 # called Backup in user's home directory pointing to this directory that can be
 # used in a backup script
@@ -207,6 +197,16 @@ function quit_func(){
           exit
     fi
     done
+}
+
+#----------------------------------------------------------------------------#
+# function designed to emulate dos pause command
+# can pass any prompt to display
+# example pause 'Press [Ctrl]+[C] to cancel or [Enter] key to continue...'
+
+function pause_func(){
+   read -p "$*"
+ echo ""
 }
 
 #----------------------------------------------------------------------------#
