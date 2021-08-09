@@ -1,7 +1,7 @@
 #!/bin/bash
 #----------------------------------------------------------------------------#
 # File: my_functions.sh
-# Last Update: Thu 11 Mar 2021 12:04:08 PM CST 
+# Last Update: Sun 08 Aug 2021 08:48:00 PM CDT 
 # Purpose: various functions used regularly in my bash scripts
 #----------------------------------------------------------------------------#
 # include $HOME/Bash_Scripts/my_functions.sh by copying following line and 
@@ -88,7 +88,7 @@ function connect_func(){
 	if [ ! -f /media/dad/el1200/dad/Desktop/htop.sh ]; then
 		notify-send -t 5000 -u low "Connection Failed"
 		echo "Connection Failed"
-		else
+	else
 		notify-send -t 5000 -u low "Connected el1200 & remote_media"
 		echo "connected el1200 & remote_media"
 		zenity \
@@ -192,15 +192,6 @@ managebooks_func(){
 
 	#Open AF Library, Pioneer Library and Bookbub urls in google chrome
 	/usr/bin/google-chrome-stable https://dod.overdrive.com https://pioneerok.overdrive.com/ http://pioneerlibrarysystem.org/ https://www.bookbub.com/launch &
-}
-
-#----------------------------------------------------------------------------#
-# pause_func is comparable to dos pause except you can change text displayed
-# at time used. I use it for pausing scripts as I am testing them
-# Ref: https://www.cyberciti.biz/tips/linux-unix-pause-command.html
-pause_func(){
-   read -p "$*"
-   # default pause_func 'Press [Enter] key to continue...'
 }
 
 #----------------------------------------------------------------------------#
@@ -481,7 +472,7 @@ TESTOUPUT(){
 	# instead of writing 2 echo statements use TESTOUPUT function to separate 
 	# screen output for clarity
 	echo
-	echo $1 $2 $3 $4 $5 $6 $7 $8
+	echo $1 $2 $3 $4 $5 $6 $7 $8 $9
 }
 
 #----------------------------------------------------------------------------#
